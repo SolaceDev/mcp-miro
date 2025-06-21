@@ -40,7 +40,7 @@ docker build -t mcp-miro .
 Then, run the container, passing your MIRO OAuth key as an environment variable:
 
 ```bash
-docker run -i --rm -e MIRO_OAUTH_KEY="YOUR-MIRO-OAUTH-KEY" mcp-miro
+docker run -i --rm -e MIRO_OAUTH_TOKEN="YOUR-MIRO-OAUTH-TOKEN" mcp-miro
 ```
 
 ## Features

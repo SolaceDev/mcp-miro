@@ -2,16 +2,21 @@ FROM node:18
 
 WORKDIR /app
 
+# Copy only package.json files first
 COPY package*.json ./
 
-RUN npm install
+# Disable lifecycle scripts for install step
+RUN npm install --ignore-scripts
 
+# Copy the rest of the application code
 COPY . .
 
-RUN npm run build
+# Manually run prepare now that code is present
+RUN npm run prepare
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
 USER nextjs
 
