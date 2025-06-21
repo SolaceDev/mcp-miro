@@ -29,6 +29,20 @@ npx @michaellatman/mcp-get@latest install @llmindset/mcp-miro
 
 _Note - if you are using an old version of Windows PowerShell, you may need to run_ `Set-ExecutionPolicy Bypass -Scope Process` _before this command._
 
+### Running with Docker
+
+To run the server in a Docker container, first build the image:
+
+```bash
+docker build -t mcp-miro .
+```
+
+Then, run the container, passing your MIRO OAuth key as an environment variable:
+
+```bash
+docker run -i --rm -e MIRO_OAUTH_KEY="YOUR-MIRO-OAUTH-KEY" mcp-miro
+```
+
 ## Features
 
 ![MIRO/Claude Desktop Screenshot](./2024-12-02-screenshot_1.png)
@@ -79,6 +93,33 @@ On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
       ]
     }
   }
+}
+```
+
+### For Roo
+
+To use with Roo, add the server configuration to your `mcp_servers.json` file.
+
+On Linux/MacOS: `~/.config/roo/mcp_servers.json`
+On Windows: `%APPDATA%/Roo/mcp_servers.json`
+
+```json
+{
+  "mcp-miro": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e", "MIRO_OAUTH_TOKEN",
+        "mcp-miro"
+      ],
+      "env": {
+        "MIRO_OAUTH_TOKEN": "YOUR-MIRO-OAUTH-KEY"
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    }
 }
 ```
 
